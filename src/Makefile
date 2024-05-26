@@ -19,4 +19,4 @@ start: build
 
 .PHONY: test
 test:
-	go test -v -coverpkg=./... ./test
+	go test -v -coverpkg=./... ./test/...
