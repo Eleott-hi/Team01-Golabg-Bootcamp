@@ -1,10 +1,11 @@
 package database
 
 import (
-	"team01/database"
 	"testing"
 
 	"github.com/google/uuid"
+
+	"team01/pkg/database"
 )
 
 func TestDatabaseSet(t *testing.T) {
@@ -122,7 +123,7 @@ func TestDatabaseDeleteInvalidKey(t *testing.T) {
 
 	invalid_key_uuid, _ := uuid.NewUUID()
 	invalid_key := database.Key(invalid_key_uuid)
-	
+
 	err := db.Delete(invalid_key)
 	if err == nil {
 		t.Error(err)
