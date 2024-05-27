@@ -4,7 +4,7 @@ package warehouse;
 
 option go_package = "/internal/warehouse";
 
-service WareHouseDB {
+service WareHouse {
     rpc SetValue(Pair) returns (Result);
     rpc GetValue(Key) returns (Result);
     rpc DeleteValue(Key) returns (Result);

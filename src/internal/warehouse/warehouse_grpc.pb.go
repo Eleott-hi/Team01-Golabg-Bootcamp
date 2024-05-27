@@ -19,163 +19,163 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	WareHouseDB_SetValue_FullMethodName    = "/warehouse.WareHouseDB/SetValue"
-	WareHouseDB_GetValue_FullMethodName    = "/warehouse.WareHouseDB/GetValue"
-	WareHouseDB_DeleteValue_FullMethodName = "/warehouse.WareHouseDB/DeleteValue"
+	WareHouse_SetValue_FullMethodName    = "/warehouse.WareHouse/SetValue"
+	WareHouse_GetValue_FullMethodName    = "/warehouse.WareHouse/GetValue"
+	WareHouse_DeleteValue_FullMethodName = "/warehouse.WareHouse/DeleteValue"
 )
 
-// WareHouseDBClient is the client API for WareHouseDB service.
+// WareHouseClient is the client API for WareHouse service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type WareHouseDBClient interface {
+type WareHouseClient interface {
 	SetValue(ctx context.Context, in *Pair, opts ...grpc.CallOption) (*Result, error)
 	GetValue(ctx context.Context, in *Key, opts ...grpc.CallOption) (*Result, error)
 	DeleteValue(ctx context.Context, in *Key, opts ...grpc.CallOption) (*Result, error)
 }
 
-type wareHouseDBClient struct {
+type wareHouseClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewWareHouseDBClient(cc grpc.ClientConnInterface) WareHouseDBClient {
-	return &wareHouseDBClient{cc}
+func NewWareHouseClient(cc grpc.ClientConnInterface) WareHouseClient {
+	return &wareHouseClient{cc}
 }
 
-func (c *wareHouseDBClient) SetValue(ctx context.Context, in *Pair, opts ...grpc.CallOption) (*Result, error) {
+func (c *wareHouseClient) SetValue(ctx context.Context, in *Pair, opts ...grpc.CallOption) (*Result, error) {
 	out := new(Result)
-	err := c.cc.Invoke(ctx, WareHouseDB_SetValue_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, WareHouse_SetValue_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *wareHouseDBClient) GetValue(ctx context.Context, in *Key, opts ...grpc.CallOption) (*Result, error) {
+func (c *wareHouseClient) GetValue(ctx context.Context, in *Key, opts ...grpc.CallOption) (*Result, error) {
 	out := new(Result)
-	err := c.cc.Invoke(ctx, WareHouseDB_GetValue_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, WareHouse_GetValue_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *wareHouseDBClient) DeleteValue(ctx context.Context, in *Key, opts ...grpc.CallOption) (*Result, error) {
+func (c *wareHouseClient) DeleteValue(ctx context.Context, in *Key, opts ...grpc.CallOption) (*Result, error) {
 	out := new(Result)
-	err := c.cc.Invoke(ctx, WareHouseDB_DeleteValue_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, WareHouse_DeleteValue_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// WareHouseDBServer is the server API for WareHouseDB service.
-// All implementations must embed UnimplementedWareHouseDBServer
+// WareHouseServer is the server API for WareHouse service.
+// All implementations must embed UnimplementedWareHouseServer
 // for forward compatibility
-type WareHouseDBServer interface {
+type WareHouseServer interface {
 	SetValue(context.Context, *Pair) (*Result, error)
 	GetValue(context.Context, *Key) (*Result, error)
 	DeleteValue(context.Context, *Key) (*Result, error)
-	mustEmbedUnimplementedWareHouseDBServer()
+	mustEmbedUnimplementedWareHouseServer()
 }
 
-// UnimplementedWareHouseDBServer must be embedded to have forward compatible implementations.
-type UnimplementedWareHouseDBServer struct {
+// UnimplementedWareHouseServer must be embedded to have forward compatible implementations.
+type UnimplementedWareHouseServer struct {
 }
 
-func (UnimplementedWareHouseDBServer) SetValue(context.Context, *Pair) (*Result, error) {
+func (UnimplementedWareHouseServer) SetValue(context.Context, *Pair) (*Result, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SetValue not implemented")
 }
-func (UnimplementedWareHouseDBServer) GetValue(context.Context, *Key) (*Result, error) {
+func (UnimplementedWareHouseServer) GetValue(context.Context, *Key) (*Result, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetValue not implemented")
 }
-func (UnimplementedWareHouseDBServer) DeleteValue(context.Context, *Key) (*Result, error) {
+func (UnimplementedWareHouseServer) DeleteValue(context.Context, *Key) (*Result, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteValue not implemented")
 }
-func (UnimplementedWareHouseDBServer) mustEmbedUnimplementedWareHouseDBServer() {}
+func (UnimplementedWareHouseServer) mustEmbedUnimplementedWareHouseServer() {}
 
-// UnsafeWareHouseDBServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to WareHouseDBServer will
+// UnsafeWareHouseServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to WareHouseServer will
 // result in compilation errors.
-type UnsafeWareHouseDBServer interface {
-	mustEmbedUnimplementedWareHouseDBServer()
+type UnsafeWareHouseServer interface {
+	mustEmbedUnimplementedWareHouseServer()
 }
 
-func RegisterWareHouseDBServer(s grpc.ServiceRegistrar, srv WareHouseDBServer) {
-	s.RegisterService(&WareHouseDB_ServiceDesc, srv)
+func RegisterWareHouseServer(s grpc.ServiceRegistrar, srv WareHouseServer) {
+	s.RegisterService(&WareHouse_ServiceDesc, srv)
 }
 
-func _WareHouseDB_SetValue_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _WareHouse_SetValue_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(Pair)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(WareHouseDBServer).SetValue(ctx, in)
+		return srv.(WareHouseServer).SetValue(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: WareHouseDB_SetValue_FullMethodName,
+		FullMethod: WareHouse_SetValue_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(WareHouseDBServer).SetValue(ctx, req.(*Pair))
+		return srv.(WareHouseServer).SetValue(ctx, req.(*Pair))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _WareHouseDB_GetValue_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _WareHouse_GetValue_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(Key)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(WareHouseDBServer).GetValue(ctx, in)
+		return srv.(WareHouseServer).GetValue(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: WareHouseDB_GetValue_FullMethodName,
+		FullMethod: WareHouse_GetValue_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(WareHouseDBServer).GetValue(ctx, req.(*Key))
+		return srv.(WareHouseServer).GetValue(ctx, req.(*Key))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _WareHouseDB_DeleteValue_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _WareHouse_DeleteValue_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(Key)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(WareHouseDBServer).DeleteValue(ctx, in)
+		return srv.(WareHouseServer).DeleteValue(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: WareHouseDB_DeleteValue_FullMethodName,
+		FullMethod: WareHouse_DeleteValue_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(WareHouseDBServer).DeleteValue(ctx, req.(*Key))
+		return srv.(WareHouseServer).DeleteValue(ctx, req.(*Key))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// WareHouseDB_ServiceDesc is the grpc.ServiceDesc for WareHouseDB service.
+// WareHouse_ServiceDesc is the grpc.ServiceDesc for WareHouse service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var WareHouseDB_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "warehouse.WareHouseDB",
-	HandlerType: (*WareHouseDBServer)(nil),
+var WareHouse_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "warehouse.WareHouse",
+	HandlerType: (*WareHouseServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "SetValue",
-			Handler:    _WareHouseDB_SetValue_Handler,
+			Handler:    _WareHouse_SetValue_Handler,
 		},
 		{
 			MethodName: "GetValue",
-			Handler:    _WareHouseDB_GetValue_Handler,
+			Handler:    _WareHouse_GetValue_Handler,
 		},
 		{
 			MethodName: "DeleteValue",
-			Handler:    _WareHouseDB_DeleteValue_Handler,
+			Handler:    _WareHouse_DeleteValue_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
