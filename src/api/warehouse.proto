@@ -5,10 +5,12 @@ package warehouse;
 option go_package = "/internal/warehouse";
 
 service WareHouse {
-    rpc SetValue(Pair) returns (Result);
+    rpc SetValue(Pair) returns (Empty);
     rpc GetValue(Key) returns (Result);
-    rpc DeleteValue(Key) returns (Result);
+    rpc DeleteValue(Key) returns (Empty);
 }
+
+message Empty {}
 
 message Pair {
     string key = 1;

@@ -28,9 +28,9 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type WareHouseClient interface {
-	SetValue(ctx context.Context, in *Pair, opts ...grpc.CallOption) (*Result, error)
+	SetValue(ctx context.Context, in *Pair, opts ...grpc.CallOption) (*Empty, error)
 	GetValue(ctx context.Context, in *Key, opts ...grpc.CallOption) (*Result, error)
-	DeleteValue(ctx context.Context, in *Key, opts ...grpc.CallOption) (*Result, error)
+	DeleteValue(ctx context.Context, in *Key, opts ...grpc.CallOption) (*Empty, error)
 }
 
 type wareHouseClient struct {
@@ -41,8 +41,8 @@ func NewWareHouseClient(cc grpc.ClientConnInterface) WareHouseClient {
 	return &wareHouseClient{cc}
 }
 
-func (c *wareHouseClient) SetValue(ctx context.Context, in *Pair, opts ...grpc.CallOption) (*Result, error) {
-	out := new(Result)
+func (c *wareHouseClient) SetValue(ctx context.Context, in *Pair, opts ...grpc.CallOption) (*Empty, error) {
+	out := new(Empty)
 	err := c.cc.Invoke(ctx, WareHouse_SetValue_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -59,8 +59,8 @@ func (c *wareHouseClient) GetValue(ctx context.Context, in *Key, opts ...grpc.Ca
 	return out, nil
 }
 
-func (c *wareHouseClient) DeleteValue(ctx context.Context, in *Key, opts ...grpc.CallOption) (*Result, error) {
-	out := new(Result)
+func (c *wareHouseClient) DeleteValue(ctx context.Context, in *Key, opts ...grpc.CallOption) (*Empty, error) {
+	out := new(Empty)
 	err := c.cc.Invoke(ctx, WareHouse_DeleteValue_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -72,9 +72,9 @@ func (c *wareHouseClient) DeleteValue(ctx context.Context, in *Key, opts ...grpc
 // All implementations must embed UnimplementedWareHouseServer
 // for forward compatibility
 type WareHouseServer interface {
-	SetValue(context.Context, *Pair) (*Result, error)
+	SetValue(context.Context, *Pair) (*Empty, error)
 	GetValue(context.Context, *Key) (*Result, error)
-	DeleteValue(context.Context, *Key) (*Result, error)
+	DeleteValue(context.Context, *Key) (*Empty, error)
 	mustEmbedUnimplementedWareHouseServer()
 }
 
@@ -82,13 +82,13 @@ type WareHouseServer interface {
 type UnimplementedWareHouseServer struct {
 }
 
-func (UnimplementedWareHouseServer) SetValue(context.Context, *Pair) (*Result, error) {
+func (UnimplementedWareHouseServer) SetValue(context.Context, *Pair) (*Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SetValue not implemented")
 }
 func (UnimplementedWareHouseServer) GetValue(context.Context, *Key) (*Result, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetValue not implemented")
 }
-func (UnimplementedWareHouseServer) DeleteValue(context.Context, *Key) (*Result, error) {
+func (UnimplementedWareHouseServer) DeleteValue(context.Context, *Key) (*Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteValue not implemented")
 }
 func (UnimplementedWareHouseServer) mustEmbedUnimplementedWareHouseServer() {}
