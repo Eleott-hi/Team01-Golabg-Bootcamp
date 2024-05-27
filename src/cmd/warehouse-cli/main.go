@@ -11,22 +11,17 @@ import (
 	"strings"
 )
 
-var (
-	host string
-	port string
-)
-
 func main() {
-	flag.StringVar(&host, "H", "127.0.0.1", "database host")
-	flag.StringVar(&port, "P", "8080", "database port")
+	host := flag.String("H", "127.0.0.1", "database host")
+	port := flag.String("P", "8080", "database port")
 	flag.Parse()
 
-	conn, err := net.Dial("tcp", fmt.Sprintf("%s:%s", host, port))
+	conn, err := net.Dial("tcp", fmt.Sprintf("%s:%s", *host, *port))
 	if err != nil {
 		log.Fatalf("Cannot dial: %v", err)
 	}
 	defer conn.Close()
-	fmt.Printf("Connected to a database of Warehouse {NUM} at %s:%s\n", host, port)
+	fmt.Printf("Connected to a database of Warehouse {NUM} at %s:%s\n", *host, *port)
 
 	reader := bufio.NewReader(os.Stdin)
 	for {
