@@ -3,3 +3,13 @@ run-cli:
 
 run-database:
 	go run cmd/database/main.go
+
+proto:
+	protoc \
+		--proto_path=api \
+		--go_out . \
+		--go-grpc_out . \
+		api/warehouse.proto
+
+tidy:
+	go mod tidy

@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package warehouse;
+
+option go_package = "/internal/warehouse";
+
+service WareHouseDB {
+    rpc SetValue(Pair) returns (Result);
+    rpc GetValue(Key) returns (Result);
+    rpc DeleteValue(Key) returns (Result);
+}
+
+message Pair {
+    string key = 1;
+    string value = 2;
+}
+
+message Key {
+    string key = 1;
+}
+
+message Result {
+    string message = 1;
+}

@@ -44,6 +44,8 @@ func handleRequest(conn net.Conn) {
 }
 
 func executeCommand(command string) string {
+	fmt.Println("Command: ", command)
+
 	parts := strings.Fields(command)
 	if len(parts) < 2 {
 		return "Error: imvalid command"
