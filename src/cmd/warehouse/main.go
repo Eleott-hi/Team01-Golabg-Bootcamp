@@ -1,27 +1,31 @@
 package main
 
-import (
-	"log"
-	"net"
-	"team01/internal/tendermmint"
-	"team01/internal/warehouse"
+import "flag"
 
-	"google.golang.org/grpc"
+const (
+	DefaultHTTPAddr = "localhost:11000"
+	DefaultRaftAddr = "localhost:12000"
 )
 
+var (
+	httpAddr string
+	raftAddr string
+	joinAddr string
+	nodeID   string
+)
+
+func init() {
+	flag.StringVar(&httpAddr, "h", DefaultHTTPAddr, "HTTP bind address")
+	flag.StringVar(&raftAddr, "r", DefaultRaftAddr, "Raft bind address")
+	flag.StringVar(&joinAddr, "j", "", "Join address (if any)")
+	flag.StringVar(&nodeID, "n", "", "node id. if not set, same as raft bind address")
+}
+
 func main() {
-	// replicationFactor := flag.Int("r", 2, "replication factor")
-	// flag.Parse()
+	flag.Parse()
 
-	app := &tendermmint.Application{}
-	go app.StartABCI("127.0.0.1:26658")
-
-	lis, err := net.Listen("tcp", "127.0.0.1:8080")
-	if err != nil {
-		log.Fatalf("failed to listen: %v", err)
+	if nodeID == "" {
+		nodeID = raftAddr
 	}
 
-	grpcServer := grpc.NewServer()
-	warehouse.StartServer(grpcServer)
-	grpcServer.Serve(lis)
 }
