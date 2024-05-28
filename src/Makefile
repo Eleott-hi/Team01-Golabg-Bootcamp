@@ -8,13 +8,24 @@ build:
 	go build -o warehouse cmd/warehouse/main.go
 
 start-leader:
-	./warehouse -h :11000 -r :12000 -n node0 node0
+	./warehouse \
+		-h localhost:11000 \
+		-r localhost:12000 \
+		-n node0
 
 start-follower1:
-	./warehouse -h :11001 -r :12001 -j :11000 -n node1 node1
+	./warehouse \
+		-h localhost:11001 \
+		-r localhost:12001 \
+		-j localhost:11000 \
+		-n node1
 
 start-follower2:
-	./warehouse -h :11002 -r :12002 -j :11000 -n node2 node2
+	./warehouse \
+		-h localhost:11002 \
+		-r localhost:12002 \
+		-j localhost:11000 \
+		-n node2
 
 proto:
 	protoc \

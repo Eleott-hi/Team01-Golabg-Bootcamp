@@ -40,13 +40,11 @@ func init() {
 func main() {
 	flag.Parse()
 
-	if raftDir == "" {
-		flag.PrintDefaults()
-		log.Fatal("no raft storage dir specified")
-	}
-
 	if nodeID == "" {
 		nodeID = raftAddr
+	}
+	if raftDir == "" {
+		raftDir = nodeID
 	}
 
 	if err := os.MkdirAll(raftDir, 0700); err != nil {
@@ -64,7 +62,7 @@ func main() {
 	}
 
 	if joinAddr != "" {
-		if err := join(joinAddr, raftDir, nodeID); err != nil {
+		if err := join(joinAddr, raftAddr, nodeID); err != nil {
 			log.Fatalf("failed to join node at %s: %v", joinAddr, err)
 		}
 	}
